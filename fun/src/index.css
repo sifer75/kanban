@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: SpaceGrotesk;
+}
+
+@font-face {
+  font-family: "SpaceGrotesk";
+  src: url("./assets/spaceGrotesk/SpaceGrotesk-Bold.ttf") format("truetype");
+  font-weight: 700;
+}
+@font-face {
+  font-family: "SpaceGrotesk";
+  src: url("./assets/spaceGrotesk/SpaceGrotesk-Light.ttf") format("truetype");
+  font-weight: 300;
+}
+@font-face {
+  font-family: "SpaceGrotesk";
+  src: url("./assets/spaceGrotesk/SpaceGrotesk-Medium.ttf") format("truetype");
+  font-weight: 500;
+}
+@font-face {
+  font-family: "SpaceGrotesk";
+  src: url("./assets/spaceGrotesk/SpaceGrotesk-Regular.ttf") format("truetype");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "SpaceGrotesk";
+  src: url("./assets/spaceGrotesk/SpaceGrotesk-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+}
+
+.scroll-hidden {
+  overflow: scroll; /* Ou overflow: auto; selon vos besoins */
+}
+
+.scroll-hidden::-webkit-scrollbar {
+  display: none; /* Pour Chrome, Safari et Opera */
+}
+
+.scroll-hidden {
+  -ms-overflow-style: none; /* Pour Internet Explorer et Edge */
+  scrollbar-width: none; /* Pour Firefox */
+}

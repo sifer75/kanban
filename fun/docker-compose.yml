@@ -1,0 +1,7 @@
+name: funb
+services:
+  frontend:
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
