@@ -44,7 +44,7 @@ export default class SocialsController {
           await user.save()
       }
       await auth.use('web').login(user)
-      return response.redirect(`http://127.0.0.1:3333/workspace`)
+      return response.redirect(`http://localhost:80/workspace`)
     } catch (error) {
       console.error('Erreur lors de la connexion via GitHub', error)
       return response.status(500).json({ error: 'Erreur lors de la connexion via GitHub' })
