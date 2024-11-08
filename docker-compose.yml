@@ -42,10 +42,14 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3333:3333"
-    environment:
-      - NODE_ENV=production
+    env_file:
+      - .env
     networks:
       - fab_shared_network
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: sh /app/start.sh
 
   frontend:
     container_name: fab-frontend

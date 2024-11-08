@@ -6,7 +6,6 @@ RUN npm install --production
 COPY . .
 RUN npm run build
 COPY ./.env ./build
-COPY start.sh /app/start.sh
-RUN chmod +x /app/start.sh
+RUN apk update && apk add --no-cache postgresql-client
 EXPOSE 3333
-CMD ["./start.sh"]
+CMD ["npm", "start"]
