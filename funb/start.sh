@@ -1,10 +1,5 @@
 #! /bin/sh
 
-if [ -z "$DB_USER" ] || [ -z "$DB_PASSWORD" ] || [ -z "$DB_DATABASE" ]; then
-  echo "Les variables d'environnement DB_USER, DB_PASSWORD ou DB_DATABASE ne sont pas définies."
-  exit 1
-fi
-
 until pg_isready -h postgres -U "$DB_USER" -d "$DB_DATABASE"; do
   echo 'En attente de la base de donnée ...'
   sleep 2
@@ -19,11 +14,6 @@ SELECT EXISTS (
   WHERE schemaname = 'public'
   AND tablename = 'users'
 )" | xargs)
-
-
-echo "Valeur de table_exists: '$table_exists'"
-echo "DB_USER=$DB_USER, DB_PASSWORD=$DB_PASSWORD"
-
 
 if [ "$table_exists" = "f" ]; then
   echo 'Création des migrations ...'
