@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useQuery } from "@tanstack/react-query";
 import { Plus } from "iconoir-react";
-import { getAllWorkspace } from "@/lib/workspace.request";
+import { getAllWorkspaces } from "@/lib/workspace.request";
 import { WorkspaceProps } from "@/lib/cards.utils";
 
 import { useNavigate } from "react-router-dom";
@@ -41,7 +41,6 @@ function WorkspaceElement({
       <span className="truncate w-full font-normal text-sm text-left">
         {workspace.title}
       </span>
-
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <div className="w-4 h-4">
@@ -79,7 +78,7 @@ function MenuListWorkspace({ setSelectMenu }: MenuListWorkspaceProps) {
     data: workspaces,
     isError: workspaceError,
     isLoading: workspaceLoading,
-  } = useQuery({ queryKey: ["workspace"], queryFn: getAllWorkspace });
+  } = useQuery({ queryKey: ["workspace"], queryFn: getAllWorkspaces });
 
   if (workspaceError || workspaceLoading) return <div>chargement...</div>;
 

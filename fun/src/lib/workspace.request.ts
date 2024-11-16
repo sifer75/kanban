@@ -13,7 +13,7 @@ export const createWorkspace = async (data: WorkspaceProps) => {
   return response.json();
 };
 
-export const getAllWorkspace = async () => {
+export const getAllWorkspaces = async () => {
   const response = await fetch(`http://${BACKEND_HOST}:3333/workspace/get`, {
     method: "GET",
     headers: { "Content-Type": "application/json" },

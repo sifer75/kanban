@@ -1,7 +1,7 @@
 import RecentCard from "@/components/card/dashboard/RecentCard";
 import WorkspaceCard from "@/components/card/dashboard/WorkspaceCard";
 import { WorkspaceProps } from "@/lib/cards.utils";
-import { getAllWorkspace } from "@/lib/workspace.request";
+import { getAllWorkspaces } from "@/lib/workspace.request";
 import { useQuery } from "@tanstack/react-query";
 import Agenda from "@/components/card/dashboard/Agenda";
 import { colors, recent } from "../lib/dashboard.utils";
@@ -20,7 +20,7 @@ function Dashboard() {
     isError,
   } = useQuery({
     queryKey: ["workspace"],
-    queryFn: getAllWorkspace,
+    queryFn: getAllWorkspaces,
   });
 
   if (isLoading || isError) return;

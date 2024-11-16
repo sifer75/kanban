@@ -13,7 +13,7 @@ import {
 import { Label } from "../ui/label";
 import { LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-function ButtonUser() {
+function ButtonLogout() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
@@ -23,7 +23,7 @@ function ButtonUser() {
       console.log(error);
     },
     onSuccess: async () => {
-      queryClient.invalidateQueries({ queryKey: ["user"] });
+      queryClient.invalidateQueries({ queryKey: ["Logout"] });
       navigate("/");
     },
   });
@@ -66,4 +66,4 @@ function ButtonUser() {
   );
 }
 
-export default ButtonUser;
+export default ButtonLogout;

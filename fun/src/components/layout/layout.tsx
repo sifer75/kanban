@@ -1,27 +1,11 @@
 import { ReactNode, useEffect, useState } from "react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarImage } from "../ui/avatar";
-import ButtonUser from "./ButtonUser";
-import { useQuery } from "@tanstack/react-query";
-import { getUserInfo } from "@/lib/user.request";
-import {
-  HomeSimple,
-  NavArrowDown,
-  NavArrowRight,
-  Search,
-  Settings,
-} from "iconoir-react";
-import { Link, useParams } from "react-router-dom";
+import { HomeSimple, Search, Settings, BookLock } from "iconoir-react";
+import { useParams } from "react-router-dom";
 import { Input } from "../ui/input";
 import MenuListWorkspace from "./MenuListWorkspace";
 import MenuListElements from "./MenuListElements";
+import ButtonUserSettings from "./ButtonUserSettings";
+import Elements from "./Elements";
 
 function MenuAction() {
   const { workspaceId } = useParams<{ workspaceId: string | undefined }>();
@@ -49,15 +33,8 @@ function MenuAction() {
     </div>
   );
 }
+
 function Sidebar() {
-  const {
-    data: user,
-    isError: userError,
-    isLoading: userLoading,
-  } = useQuery({ queryKey: ["user"], queryFn: getUserInfo });
-
-  if (userError || userLoading) return <div>chargement...</div>;
-
   return (
     <div className="h-screen w-60 self-center border flex flex-col gap-12  items-center p-4">
       <h1 className="text-center text-xl font-medium w-full flex flex-start">
@@ -69,49 +46,25 @@ function Sidebar() {
           className="h-10 w-full py-2 pl-7 pr-2.5 rounded-xl"
           type="text"
           placeholder="Search..."
-          //   value={searchTitle}
-          //   onChange={(e) => {
-          //     setSearchTitle(e.target.value);
-          //   }}
         />
       </div>
       <div className="flex flex-col gap-3 w-full text-sm">
-        <div className="flex flex-row justify-between">
-          <Link to="/workspace" className="flex flex-row gap-2 items-center">
-            <HomeSimple className="w-4 h-4" />
-            <h2>Home</h2>
-          </Link>
-          <NavArrowRight className="w-4 h-4" />
-        </div>
-        <div className="flex flex-row justify-between">
-          <div className="flex flex-row gap-2 items-center">
-            <Settings className="w-4 h-4" />
-            <h2>Settings</h2>
-          </div>
-          <NavArrowRight className="w-4 h-4" />
-        </div>
+        <Elements
+          title={"Home"}
+          link={"/workspace"}
+          logo={<HomeSimple className="w-4 h-4" />}
+        />
+        <Elements title={"Settings"} logo={<Settings className="w-4 h-4" />} />
+        <Elements
+          title={"Friends"}
+          link={"/friend"}
+          logo={<BookLock className="w-4 h-4" />}
+        />
       </div>
-      <MenuAction />
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <button className="w-full flex items-center gap-2.5">
-            <Avatar className="w-8 h-8 rounded-xl">
-              <AvatarImage src={user.avatarUrl} alt="image de l'utilisateur" />
-            </Avatar>
-            <p className="w-full text-left">{user.name}</p>
-            <div className="w-4 h-4">
-              <NavArrowDown className="w-4 h-4" />
-            </div>
-          </button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuLabel>Mon compte</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem asChild>
-            <ButtonUser />
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+      <div className="flex flex-col gap-3 w-full text-sm h-full">
+        <MenuAction />
+        <ButtonUserSettings />
+      </div>
     </div>
   );
 }

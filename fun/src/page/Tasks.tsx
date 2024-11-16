@@ -6,6 +6,7 @@ import {
   closestCenter,
   DndContext,
   DragEndEvent,
+  DragMoveEvent,
   PointerSensor,
   useSensor,
   useSensors,
@@ -53,7 +54,7 @@ function Tasks() {
   const handleDragEnd = (e: DragEndEvent) => {
     const { over, active } = e;
     if (!over || !active) return;
-
+    console.log(active.id, over.id, "zzzz");
     const oldColumnId = findContainer(active.id as string);
     const newColumnId = findContainer(over.id as string);
     if (!oldColumnId || !newColumnId) return;
@@ -86,40 +87,40 @@ function Tasks() {
     }
   };
 
-  // function handleDragMove({ active, over }: DragMoveEvent) {
-  //   if (!active || !over) return;
-  //   const activeColumn = findContainer(active.id as string);
-  //   const overColumn = findContainer(over.id as string);
+  function handleDragMove({ active, over }: DragMoveEvent) {
+    if (!active || !over) return;
+    const activeColumn = findContainer(active.id as string);
+    const overColumn = findContainer(over.id as string);
 
-  //   if (!overColumn || !activeColumn) return;
+    if (!overColumn || !activeColumn) return;
 
-  //   const activeTask = columns[activeColumn];
-  //   const overTask = columns[overColumn];
+    const activeTask = columns[activeColumn];
+    const overTask = columns[overColumn];
 
-  //   const draggedTask = activeTask.find((task) => task.id === active.id);
-  //   if (!draggedTask) return;
+    const draggedTask = activeTask.find((task) => task.id === active.id);
+    if (!draggedTask) return;
 
-  //   if (activeColumn !== overColumn) {
-  //     const overIndex = overTask.findIndex((task) => task.id === over.id);
-  //     const newIndex = overIndex >= 0 ? overIndex : overTask.length;
+    if (activeColumn !== overColumn) {
+      const overIndex = overTask.findIndex((task) => task.id === over.id);
+      const newIndex = overIndex >= 0 ? overIndex : overTask.length;
 
-  //     const updateActiveTask = activeTask.filter(
-  //       (task) => task.id !== active.id
-  //     );
+      const updateActiveTask = activeTask.filter(
+        (task) => task.id !== active.id
+      );
 
-  //     const updateOverTask = [
-  //       ...overTask.slice(0, newIndex),
-  //       draggedTask,
-  //       ...overTask.slice(newIndex),
-  //     ];
+      const updateOverTask = [
+        ...overTask.slice(0, newIndex),
+        draggedTask,
+        ...overTask.slice(newIndex),
+      ];
 
-  //     setColumns({
-  //       ...columns,
-  //       [activeColumn]: updateActiveTask,
-  //       [overColumn]: updateOverTask,
-  //     });
-  //   }
-  // }
+      setColumns({
+        ...columns,
+        [activeColumn]: updateActiveTask,
+        [overColumn]: updateOverTask,
+      });
+    }
+  }
 
   useEffect(() => {
     if (tasks.length > 0) {
@@ -150,7 +151,7 @@ function Tasks() {
       </div>
       <DndContext
         onDragEnd={handleDragEnd}
-        // onDragMove={handleDragMove}
+        onDragMove={handleDragMove}
         sensors={sensors}
         collisionDetection={closestCenter}
       >

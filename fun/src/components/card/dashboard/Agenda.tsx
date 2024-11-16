@@ -48,7 +48,6 @@ function Agenda() {
     min: "",
     period: Meridiem.AM,
   });
-  console.log(timeEnd, "start");
   const [fetchedDate, setFetchedDate] = useState<Date | undefined>(new Date());
   const [date, setDate] = useState<Date | undefined>(new Date());
   const getFormatedDate = () => {

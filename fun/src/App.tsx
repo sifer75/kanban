@@ -5,6 +5,7 @@ import Kanbans from "./page/Kanbans";
 import Tasks from "./page/Tasks";
 import { Toaster } from "./components/ui/toaster";
 import { Layout } from "./components/layout/layout";
+import Friend from "./page/Friend";
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
             path="/workspace/:workspaceId/:elementId"
             element={<Tasks />}
           />
+          <Route path="/friend" element={<Friend />} />
         </Route>
       </Routes>
       <Toaster />

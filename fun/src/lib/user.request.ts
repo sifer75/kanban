@@ -24,3 +24,15 @@ export const logout = async () => {
   }
   return response.json();
 };
+
+export const getAllFriends = async () => {
+  const response = await fetch(`http://${BACKEND_HOST}:3333/user/get/all`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+  });
+  if (!response.ok) {
+    throw new Error("Erreur lors de la récupération des utilisateurs");
+  }
+  return response.json();
+};

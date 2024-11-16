@@ -170,7 +170,6 @@ function MenuListElements({ setSelectMenu }: MenuListElementsProps) {
         </div>
         <CreateWorkspace />
       </div>
-
       <div className="text-sm h-full flex flex-col gap-2 overflow-y-scroll">
         <TaskWorkspace
           title="Tableau de tâches"

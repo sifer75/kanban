@@ -6,13 +6,11 @@ import { CSS } from "@dnd-kit/utilities";
 import Decoration from "../dashboard/Decoration";
 
 function TaskCard({ title, description, id }: TaskProps) {
-  const safeId = id ?? "default-id";
-  const { attributes, transform, transition, setNodeRef, listeners } =
-    useSortable({ id: safeId });
+  const { attributes, transform, setNodeRef, listeners } = useSortable({ id });
 
   const style = {
     transform: CSS.Transform.toString(transform),
-    transition,
+    transition: "transform 0.15s ease",
   };
 
   return (
