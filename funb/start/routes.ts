@@ -15,16 +15,19 @@ const TaskController = () => import('#controllers/tasks_controller')
 const SocialsController = () => import('#controllers/socials_controller')
 const UsersController = () => import('#controllers/users_controller')
 const MissionController = () => import('#controllers/missions_controller')
+
 //connection
 router.get('/github/redirect', [SocialsController, 'githubRedirect'])
-router.get('/github/callback', [SocialsController, 'githubCallback'])
+router.get('/auth/github/callback', [SocialsController, 'githubCallback'])
 router.get('/google/redirect', [SocialsController, 'googleRedirect'])
-router.get('/google/callback', [SocialsController, 'googleCallback'])
+router.get('/auth/google/callback', [SocialsController, 'googleCallback'])
 
 router
   .group(() => {
+    //CRUD friends
     router.get('/user/get', [UsersController, 'getUserInfo'])
     router.post('/user/logout', [UsersController, 'logout'])
+    router.get('/user/get/all', [UsersController, 'findAllUsers'])
     // CRUD workspace
     router.post('/workspace/create', [WorkspacesController, 'createWorkspace'])
     router.get('/workspace/get', [WorkspacesController, 'getAllWorkspace'])

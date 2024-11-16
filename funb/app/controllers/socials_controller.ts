@@ -1,7 +1,6 @@
 import User from '#models/user'
 import type { HttpContext } from '@adonisjs/core/http'
-// import env from '#start/env'
-// const BACKEND_HOST = env.get('BACKEND_HOST')
+import env from '#start/env'
 export default class SocialsController {
   async githubRedirect({ ally }: HttpContext) {
     try {
@@ -44,7 +43,7 @@ export default class SocialsController {
           await user.save()
       }
       await auth.use('web').login(user)
-      return response.redirect(`http://localhost:80/workspace`)
+      return response.redirect(`${env.get('FRONTEND_HOST')}/workspace`)
     } catch (error) {
       console.error('Erreur lors de la connexion via GitHub', error)
       return response.status(500).json({ error: 'Erreur lors de la connexion via GitHub' })
@@ -53,7 +52,9 @@ export default class SocialsController {
 
   async googleRedirect({ ally }: HttpContext) {
     try {
-      await ally.use('google').redirect()
+      await ally.use('google').redirect((request) => {
+        request.scopes(['user', 'email'])
+      })
     } catch (error) {
       throw new Error('Erreur lors de la redirection vers Google : ' + error.message)
     }
@@ -90,7 +91,7 @@ export default class SocialsController {
           await user.save()
       }
       await auth.use('web').login(user)
-      return response.redirect(`http://127.0.0.1:3333/workspace`)
+      return response.redirect(`${env.get('FRONTEND_HOST')}/workspace`)
     } catch (error) {
       console.error('Erreur lors de la connexion via Google', error)
       return response.status(500).json({ error: 'Erreur lors de la connexion via Google' })

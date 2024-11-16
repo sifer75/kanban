@@ -1,17 +1,17 @@
 import env from '#start/env'
 import { defineConfig, services } from '@adonisjs/ally'
-// const BACKEND_HOST = env.get('BACKEND_HOST')
 
 const allyConfig = defineConfig({
   google: services.google({
     clientId: env.get('GOOGLE_CLIENT_ID'),
     clientSecret: env.get('GOOGLE_CLIENT_SECRET'),
-    callbackUrl: `http://localhost:3333/google/callback`,
+    callbackUrl: `${env.get('BACKEND_HOST')}/auth/google/callback`,
+    scopes: ['user', 'email'],
   }),
   github: services.github({
     clientId: env.get('GITHUB_CLIENT_ID'),
     clientSecret: env.get('GITHUB_CLIENT_SECRET'),
-    callbackUrl: `http://localhost:3333/github/callback`,
+    callbackUrl: `${env.get('BACKEND_HOST')}/auth/github/callback`,
     scopes: ['user', 'user:email'],
   }),
 })

@@ -1,3 +1,4 @@
+import User from '#models/user'
 import type { HttpContext } from '@adonisjs/core/http'
 
 export default class UsersController {
@@ -21,6 +22,15 @@ export default class UsersController {
       return response.status(200).json({ message: 'Utilisateur déconnecté avec succès' })
     } catch (e) {
       return response.status(500).json({ e: "Erreur lors de la déconnection de l'utilisateur" })
+    }
+  }
+
+  async findAllUsers({ response }: HttpContext) {
+    try {
+      const users = await User.all()
+      return response.status(200).json(users)
+    } catch (e) {
+      return response.status(500).json({ e: 'Erreur lors de la recherche des utilisateur' })
     }
   }
 }
