@@ -25,9 +25,10 @@ router.get('/auth/google/callback', [SocialsController, 'googleCallback'])
 router
   .group(() => {
     //CRUD friends
+    router.post('/user/friend/create/:id', [UsersController, 'addFriend'])
     router.get('/user/get', [UsersController, 'getUserInfo'])
     router.post('/user/logout', [UsersController, 'logout'])
-    router.get('/user/get/all', [UsersController, 'findAllUsers'])
+    router.get('/user/get/friend/all', [UsersController, 'findAllFriends'])
     // CRUD workspace
     router.post('/workspace/create', [WorkspacesController, 'createWorkspace'])
     router.get('/workspace/get', [WorkspacesController, 'getAllWorkspace'])
