@@ -1,12 +1,9 @@
-// import RecentCard from "@/components/card/dashboard/RecentCard";
-// import WorkspaceCard from "@/components/card/dashboard/WorkspaceCard";
-// import { colors, recent } from "../lib/dashboard.utils";
-
 import { useState } from "react";
 import FriendList from "@/components/friend/FriendList";
 import WorkspaceList from "@/components/friend/WorkspaceList";
 import { SearchCategory } from "@/lib/cards.utils";
 import SearchInput from "@/components/friend/SearchInput";
+import ButtonFindFriend from "@/components/friend/ButtonFindFriend";
 
 function Friend() {
   const [searchFriends, setSearchFriends] = useState<string>("");
@@ -17,7 +14,10 @@ function Friend() {
   return (
     <div className="w-full h-full flex flex-col gap-8 ">
       <div className="flex flex-col gap-2">
-        <h1 className="font-medium text-2xl">Amis</h1>
+        <div className="w-full flex items-center justify-between">
+          <h1 className="font-medium text-2xl">Amis</h1>
+          <ButtonFindFriend />
+        </div>
         <SearchInput
           setSearchFriends={setSearchFriends}
           setSelectedInput={setSelectedInput}

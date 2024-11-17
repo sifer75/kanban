@@ -6,8 +6,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { EditPencil, List, Network, XmarkCircle } from "iconoir-react";
-function SettingsWorkspace() {
+import { List, Network } from "iconoir-react";
+import DeleteWorkspace from "../card/workspace/DeleteWorkspace";
+import { WorkspaceProps } from "@/lib/cards.utils";
+import EditWorkspace from "../card/workspace/EditWorkspace";
+function SettingsWorkspace({ workspace }: { workspace: WorkspaceProps }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -22,13 +25,15 @@ function SettingsWorkspace() {
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="flex items-center gap-2">
-          <EditPencil className="w-5 h-5" />
-          <span>Modifier</span>
+          <EditWorkspace
+            titleCard={workspace.title}
+            descriptionCard={workspace.description}
+            id={workspace.id ?? 0}
+          />
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="flex items-center gap-2">
-          <XmarkCircle className="w-5 h-5" />
-          <span>Supprimer</span>
+          <DeleteWorkspace title={workspace.title} id={workspace.id ?? 0} />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

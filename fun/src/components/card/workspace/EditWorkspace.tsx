@@ -70,7 +70,7 @@ const EditWorkspace = React.forwardRef<HTMLButtonElement, DialogCardProps>(
             </Label>
             <Input
               id="name"
-              defaultValue={titleCard}
+              value={title}
               placeholder={"Nom du projet"}
               className="col-span-3 text-gray-500"
               onChange={(e) => setTitle(e.target.value)}

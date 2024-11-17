@@ -26,13 +26,32 @@ export const logout = async () => {
 };
 
 export const getAllFriends = async () => {
-  const response = await fetch(`http://${BACKEND_HOST}:3333/user/get/all`, {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-    credentials: "include",
-  });
+  const response = await fetch(
+    `http://${BACKEND_HOST}:3333/user/get/friend/all`,
+    {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+    }
+  );
   if (!response.ok) {
     throw new Error("Erreur lors de la récupération des utilisateurs");
+  }
+  return response.json();
+};
+
+export const addFriend = async (id: number) => {
+  const response = await fetch(
+    `http://${BACKEND_HOST}:3333/user/friend/create/${id}`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ id }),
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Erreur lors de l'ajout d'un ami");
   }
   return response.json();
 };

@@ -66,3 +66,10 @@ export interface StatusSelectionProps {
   title: string;
   description: string;
 }
+
+export interface SearchFriendsProps {
+  setSearchFriends: (value: string) => void;
+  setSelectedInput: (value: SearchCategory) => void;
+  selectedInput: SearchCategory;
+  searchFriends: string;
+}

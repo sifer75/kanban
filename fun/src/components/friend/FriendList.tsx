@@ -41,6 +41,7 @@ function FriendList({ selectedInput, searchFriends }: ListProps) {
     return <StatusSelection title={"Amis"} description={"Aucun amis trouvé"} />;
   }
 
+  console.log(friends, "d");
   return (
     <div className="w-full bg-[#FAFBFD] rounded-xl p-3 h-full">
       <h1 className="text-xl h-8 w-32">Amis</h1>

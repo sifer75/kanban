@@ -13,7 +13,6 @@ function WorkspaceList({ selectedInput, searchFriends }: ListProps) {
     queryKey: ["workspace", selectedInput],
     queryFn: getAllWorkspaces,
   });
-  console.log(selectedInput, searchFriends, workspaces, "jj");
   if (isLoading)
     return (
       <StatusSelection
@@ -49,7 +48,7 @@ function WorkspaceList({ selectedInput, searchFriends }: ListProps) {
   return (
     <div className="w-full bg-[#FAFBFD] rounded-xl p-3 h-full">
       <h1 className="text-xl h-8 w-32">Workspaces</h1>
-      <ul className="w-full overflow-y-scroll">
+      <ul className="w-full flex-grow overflow-y-scroll">
         {workspacesList.map((workspace, index) => (
           <li
             key={index}
@@ -57,8 +56,8 @@ function WorkspaceList({ selectedInput, searchFriends }: ListProps) {
               index === 0 ? "border-t" : ""
             }`}
           >
-            <span>{workspace.title}</span>
-            <SettingsWorkspace />
+            <span className="w-72 truncate">{workspace.title}</span>
+            <SettingsWorkspace workspace={workspace} />
           </li>
         ))}
       </ul>
