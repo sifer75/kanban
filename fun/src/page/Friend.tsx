@@ -4,6 +4,7 @@ import WorkspaceList from "@/components/friend/WorkspaceList";
 import { SearchCategory } from "@/lib/cards.utils";
 import SearchInput from "@/components/friend/SearchInput";
 import ButtonFindFriend from "@/components/friend/ButtonFindFriend";
+import ButtonAcceptFriends from "@/components/friend/ButtonAcceptFriends";
 
 function Friend() {
   const [searchFriends, setSearchFriends] = useState<string>("");
@@ -16,7 +17,10 @@ function Friend() {
       <div className="flex flex-col gap-2">
         <div className="w-full flex items-center justify-between">
           <h1 className="font-medium text-2xl">Amis</h1>
-          <ButtonFindFriend />
+          <div className="flex gap-2 items-center">
+            <ButtonAcceptFriends />
+            <ButtonFindFriend />
+          </div>
         </div>
         <SearchInput
           setSearchFriends={setSearchFriends}

@@ -8,34 +8,32 @@ import {
 } from "@/components/ui/dialog";
 import {
   Command,
-  CommandEmpty,
   CommandGroup,
-  CommandInput,
   CommandList,
   CommandSeparator,
 } from "@/components/ui/command";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { addFriend, getAllFriends } from "@/lib/user.request";
+import { requestFriend, getAllUsers } from "@/lib/user.request";
 import { DialogDescription } from "@radix-ui/react-dialog";
-
-interface Userz {
-  id: number;
-  name: string;
-  avatarUrl: string;
-}
+import { User } from "@/lib/cards.utils";
+import { useState } from "react";
+import { Input } from "../ui/input";
 
 export function ButtonFindFriend() {
+  const [findUser, setFindUser] = useState<string>("");
+  const [listOfNewFriends, setListOfNewFriends] = useState<number[]>([]);
+
   const {
     data: users,
     isError,
     isLoading,
-  } = useQuery<Userz[]>({
-    queryFn: getAllFriends,
+  } = useQuery<User[]>({
+    queryFn: getAllUsers,
     queryKey: ["users"],
   });
 
   const mutation = useMutation({
-    mutationFn: (id: number) => addFriend(id),
+    mutationFn: (id: number) => requestFriend(id),
     mutationKey: ["friend"],
   });
 
@@ -48,34 +46,46 @@ export function ButtonFindFriend() {
   }
 
   if (!users || users.length === 0) {
-    return <CommandEmpty>Aucun utilisateur trouvé.</CommandEmpty>;
+    return <Button>Aucun utilisateur trouvé.</Button>;
   }
+
+  const filterUser = users.filter((user) =>
+    user.name.toLowerCase().includes(findUser.toLowerCase())
+  );
+
+  const availableUsers = filterUser.filter(
+    (user) => !listOfNewFriends.includes(user.id)
+  );
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Rechercher un ami</Button>
+        <Button>Trouver un ami</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Rechercher un ami</DialogTitle>
-          <DialogDescription>
-            Trouver un ami via son nom d'utilisateur
-          </DialogDescription>
+          <DialogDescription>Envoyer une demande d'ami</DialogDescription>
         </DialogHeader>
         <Command className="rounded-lg border shadow-md md:min-w-full">
-          <CommandInput placeholder="Nom de l'utilisateur ..." />
+          <Input
+            placeholder="Nom de l'utilisateur ..."
+            value={findUser}
+            onChange={(e) => setFindUser(e.target.value)}
+          />
           <CommandList>
             <CommandGroup>
-              {users.map((user: Userz) => (
+              {availableUsers.map((user: User) => (
                 <div key={user.id}>
                   <CommandSeparator />
                   <Button
                     variant="ghost"
                     className="w-full flex justify-start gap-3"
-                    onClick={() => mutation.mutate(user.id)}
+                    onClick={() => {
+                      mutation.mutate(user.id);
+                      setListOfNewFriends((prev) => [...prev, user.id]);
+                    }}
                   >
-                    <div>{user.id}</div>
                     <img
                       src={user.avatarUrl}
                       alt={`${user.name}_logo`}

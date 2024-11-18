@@ -152,6 +152,7 @@ function MenuListElements({ setSelectMenu }: MenuListElementsProps) {
   } = useQuery({
     queryKey: ["workspace", workspaceId],
     queryFn: () => getSpecificWorkspace(Number(workspaceId)),
+    enabled: Boolean(workspaceId),
   });
 
   if (!workspace) return <div>workspace non trouvé</div>;

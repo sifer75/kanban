@@ -10,8 +10,9 @@ function FriendList({ selectedInput, searchFriends }: ListProps) {
     isError,
     isLoading,
   } = useQuery<User[]>({
-    queryKey: ["friend"],
+    queryKey: ["friends"],
     queryFn: getAllFriends,
+    retry: false,
   });
 
   if (isLoading)
@@ -19,14 +20,6 @@ function FriendList({ selectedInput, searchFriends }: ListProps) {
       <StatusSelection
         title={"Amis"}
         description={"Chargement de la liste de tes amis..."}
-      />
-    );
-
-  if (isError)
-    return (
-      <StatusSelection
-        title={"Amis"}
-        description={"Erreur lors du chargement de tes amis..."}
       />
     );
 
@@ -41,10 +34,18 @@ function FriendList({ selectedInput, searchFriends }: ListProps) {
     return <StatusSelection title={"Amis"} description={"Aucun amis trouvé"} />;
   }
 
+  if (isError)
+    return (
+      <StatusSelection
+        title={"Amis"}
+        description={"Erreur lors du chargement de tes amis..."}
+      />
+    );
+
   console.log(friends, "d");
   return (
     <div className="w-full bg-[#FAFBFD] rounded-xl p-3 h-full">
-      <h1 className="text-xl h-8 w-32">Amis</h1>
+      <h1 className="text-xl h-8 w-32">{SearchCategory.Ami}s</h1>
       <ul>
         {friendsList.map((friend, index) => (
           <li

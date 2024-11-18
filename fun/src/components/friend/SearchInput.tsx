@@ -1,5 +1,5 @@
 import { NetworkSolid, User, Xmark } from "iconoir-react";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import {
@@ -18,6 +18,7 @@ function SearchInput({
   selectedInput,
   searchFriends,
 }: SearchFriendsProps) {
+  const [open, setOpen] = useState<boolean>(false);
   return (
     <div className="w-full relative">
       <Input
@@ -28,7 +29,7 @@ function SearchInput({
         value={searchFriends}
       />
       <div className="absolute flex items-center justify-between gap-5 w-max top-0 right-0">
-        <Dialog>
+        <Dialog onOpenChange={setOpen} open={open}>
           <DialogTrigger asChild>
             <Button
               variant="ghost"
@@ -48,20 +49,24 @@ function SearchInput({
               <Button
                 variant="secondary"
                 className="border-2 border-black hover:bg-slate-300 gap-4"
-                onClick={() => setSelectedInput(SearchCategory.Workspace)}
+                onClick={() => {
+                  setSelectedInput(SearchCategory.Workspace);
+                  setOpen(false);
+                }}
               >
                 <NetworkSolid className="w-5 h-5" />
-                Workspaces
+                {SearchCategory.Workspace}
               </Button>
               <Button
                 variant="secondary"
                 className="border-2 border-black hover:bg-slate-300 gap-4"
                 onClick={() => {
                   setSelectedInput(SearchCategory.Ami);
+                  setOpen(false);
                 }}
               >
                 <User className="w-5 h-5" />
-                Amis
+                {SearchCategory.Ami}
               </Button>
             </div>
           </DialogContent>
