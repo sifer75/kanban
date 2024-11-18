@@ -24,30 +24,32 @@ router.get('/auth/google/callback', [SocialsController, 'googleCallback'])
 
 router
   .group(() => {
-    //CRUD friends
-    router.post('/user/friend/create/:id', [UsersController, 'addFriend'])
-    router.get('/user/get', [UsersController, 'getUserInfo'])
+    // user
     router.post('/user/logout', [UsersController, 'logout'])
+    router.get('/user/get', [UsersController, 'getUserInfo'])
+    router.get('/user/get/all', [UsersController, 'getAllUsers'])
+    router.post('/user/friend/create/:id', [UsersController, 'requestFriend'])
+    router.post('/user/friend/request/get', [UsersController, 'getAllRequestFriends'])
+    router.post('/user/friend/add/:id', [UsersController, 'addFriend'])
     router.get('/user/get/friend/all', [UsersController, 'findAllFriends'])
-    // CRUD workspace
+    //  workspace
     router.post('/workspace/create', [WorkspacesController, 'createWorkspace'])
     router.get('/workspace/get', [WorkspacesController, 'getAllWorkspace'])
     router.get('/workspace/get/:id', [WorkspacesController, 'getSpecificWorkspace'])
     router.post('/workspace/update/:id', [WorkspacesController, 'updateWorkspace'])
     router.delete('/workspace/delete/:id', [WorkspacesController, 'deleteWorkspace'])
-    // CRUD kanban
+    //  kanban
     router.post('/kanban/create', [KanbansController, 'createKanban'])
     router.get('/kanban/get/:id', [KanbansController, 'getAllKanban'])
     router.post('/kanban/update/:id', [KanbansController, 'updateKanban'])
     router.delete('/kanban/delete/:id', [KanbansController, 'deleteKanban'])
-    // CRUD task
+    //  task
     router.post('/task/create', [TaskController, 'createTask'])
     router.get('/task/get/:id', [TaskController, 'getAllTask'])
     router.post('/task/update/:id', [TaskController, 'updateTask'])
     router.delete('/task/delete/:id', [TaskController, 'deleteTask'])
-    //update task status
     router.post('/task/update/status/:id', [TaskController, 'updateTaskStatus'])
-    //CRUD mission
+    //  mission
     router.post('/mission/create', [MissionController, 'createMission'])
     router.get('/mission/get', [MissionController, 'getAllMissionsFromDate'])
   })

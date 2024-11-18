@@ -23,6 +23,7 @@ export default class extends BaseSchema {
       table.unique(['user_id', 'friend_id'])
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
+      table.enum('status', ['pending', 'accepted']).defaultTo('pending').notNullable()
     })
   }
 
