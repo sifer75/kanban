@@ -29,8 +29,10 @@ router
     router.get('/user/get', [UsersController, 'getUserInfo'])
     router.get('/user/get/all', [UsersController, 'getAllUsers'])
     router.post('/user/friend/create/:id', [UsersController, 'requestFriend'])
-    router.post('/user/friend/request/get', [UsersController, 'getAllRequestFriends'])
+    router.get('/user/friend/request/get', [UsersController, 'getAllRequestFriends'])
     router.post('/user/friend/add/:id', [UsersController, 'addFriend'])
+    router.delete('/user/friend/delete/:id', [UsersController, 'deleteFriend'])
+    router.delete('/user/friend/request/delete/:id', [UsersController, 'deleteFriendRequest'])
     router.get('/user/get/friend/all', [UsersController, 'findAllFriends'])
     //  workspace
     router.post('/workspace/create', [WorkspacesController, 'createWorkspace'])

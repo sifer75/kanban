@@ -85,12 +85,9 @@ export default class UsersController {
         return response.status(401).json({ e: 'Id non trouvé' })
       }
       const users = await User.query().whereNot('id', userId)
-      const friends = await db.from('user_user').select('friend_id').where('user_user.id', userId)
+      const friends = await UserUser.query().where('user_id', userId).orWhere('friend_id', userId)
       const friendsIds = friends.map((friend) => friend.friend_id)
       const usersFiltered = users.filter((user) => !friendsIds.includes(user.id))
-      if (!usersFiltered) {
-        return response.status(404).json({ e: 'Aucun utilisateurs trouvé' })
-      }
       return response.status(200).json(usersFiltered)
     } catch (e) {
       return response.status(500).json({ e: 'Erreur lors de la récupération des utilisateurs' })
@@ -108,12 +105,7 @@ export default class UsersController {
         return response.status(404).json({ error: 'ID ami manquant' })
       }
 
-      const relation = await UserUser.query()
-        .where('user_id', userId)
-        .andWhere('friend_id', id)
-        .first()
-      console.log(userId, id, 'o')
-
+      const relation = await UserUser.query().where('user_id', userId).andWhere('id', id).first()
       if (!relation) {
         return response.status(400).json({ error: 'Relation non trouvée' })
       }
@@ -135,14 +127,14 @@ export default class UsersController {
       if (!id) {
         return response.status(401).json({ error: 'ID ami manquant' })
       }
-      const findRequest = await UserUser.query()
-        .where('user_id', userId)
-        .andWhere('friend_id', id)
-        .first()
-      if (!findRequest) {
-        return response.status(404).json({ error: "requete d'ami non trouvée" })
+      const relation = await UserUser.query().where('user_id', userId).andWhere('id', id).first()
+
+      if (!relation) {
+        return response.status(400).json({ error: 'Relation non trouvée' })
       }
-      await findRequest.delete()
+
+      await relation.delete()
+
       return response.status(200).json({ message: "requete d'ami supprimée" })
     } catch (e) {
       return response.status(500).json({ e: "Erreur lors de l'ajout de l'ami" })
@@ -152,17 +144,43 @@ export default class UsersController {
   async getAllRequestFriends({ response, auth }: HttpContext) {
     try {
       const userId = auth?.user?.id
-      console.log(userId, 'userId')
       if (!userId) {
         return response.status(401).json({ error: 'ID non trouvé' })
       }
       const requestedFriends = await UserUser.query()
         .where('user_id', userId)
         .andWhere('status', 'pending')
-
-      return response.status(200).json({ requestedFriends })
+        .preload('user')
+      if (requestedFriends.length === 0) {
+        return response.status(400).json({ e: "Demande d'amis non trouvé" })
+      }
+      const preloadUser = requestedFriends.map((request) => ({
+        id: request.id,
+        name: request.user.name,
+        avatarUrl: request.user.avatar_url,
+        userId: request.user.id,
+      }))
+      return response.status(200).json(preloadUser)
     } catch (e) {
       return response.status(500).json({ e: "Erreur lors de la récupération des demande d'amis" })
+    }
+  }
+
+  async deleteFriend({ response, request }: HttpContext) {
+    try {
+      const { id } = request.only(['id'])
+      if (!id) {
+        return response.status(404).json({ e: 'Id non trouvé' })
+      }
+      const friend = await UserUser.query().where('friend_id', id).first()
+
+      if (!friend) {
+        return response.status(404).json({ e: 'Aucun ami trouvé' })
+      }
+      await friend.delete()
+      return response.status(200).json({ e: 'ami effacé' })
+    } catch (e) {
+      return response.status(500).json({ e: "Erreur lors de la suppression de l'ami" })
     }
   }
 }
