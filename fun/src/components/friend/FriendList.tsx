@@ -5,16 +5,20 @@ import SettingsFriend from "./SettingsFriend";
 import StatusSelection from "./StatusSelection";
 
 function FriendList({ selectedInput, searchFriends }: ListProps) {
+  const transformUserData = (userData: User) => {
+    return { ...userData, avatarUrl: userData.avatar_url };
+  };
   const {
     data: friends = [],
     isError,
     isLoading,
   } = useQuery<User[]>({
     queryKey: ["friends"],
-    queryFn: getAllFriends,
-    retry: false,
+    queryFn: async () => {
+      const response = await getAllFriends();
+      return response.map(transformUserData);
+    },
   });
-
   if (isLoading)
     return (
       <StatusSelection
@@ -42,7 +46,6 @@ function FriendList({ selectedInput, searchFriends }: ListProps) {
       />
     );
 
-  console.log(friends, "d");
   return (
     <div className="w-full bg-[#FAFBFD] rounded-xl p-3 h-full">
       <h1 className="text-xl h-8 w-32">{SearchCategory.Ami}s</h1>
@@ -62,7 +65,7 @@ function FriendList({ selectedInput, searchFriends }: ListProps) {
                 className="w-10 h-10 rounded-full"
               ></img>
             </div>
-            <SettingsFriend />
+            <SettingsFriend id={friend.id} />
           </li>
         ))}
       </ul>

@@ -86,7 +86,7 @@ export const AddFriend = async (id: number) => {
 
 export const DeleteRequestFriend = async (id: number) => {
   const response = await fetch(
-    `http://${BACKEND_HOST}:3333/user/friend/delete/${id}`,
+    `http://${BACKEND_HOST}:3333/user/friend/request/delete/${id}`,
     {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
@@ -110,6 +110,22 @@ export const getAllRequestFriend = async () => {
   );
   if (!response.ok) {
     throw new Error("Erreur lors de la récupération des requêtes d'amis");
+  }
+  return response.json();
+};
+
+export const DeleteFriend = async (id: number) => {
+  const response = await fetch(
+    `http://${BACKEND_HOST}:3333/user/friend/delete/${id}`,
+    {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ id }),
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Erreur lors de la suppression de l'ami");
   }
   return response.json();
 };

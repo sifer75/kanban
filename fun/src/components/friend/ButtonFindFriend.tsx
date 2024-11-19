@@ -22,14 +22,14 @@ import { Input } from "../ui/input";
 export function ButtonFindFriend() {
   const [findUser, setFindUser] = useState<string>("");
   const [listOfNewFriends, setListOfNewFriends] = useState<number[]>([]);
-
+  const [open, setOpen] = useState<boolean>(false);
   const {
     data: users,
     isError,
     isLoading,
   } = useQuery<User[]>({
     queryFn: getAllUsers,
-    queryKey: ["users"],
+    queryKey: ["allUsers"],
   });
 
   const mutation = useMutation({
@@ -58,7 +58,7 @@ export function ButtonFindFriend() {
   );
 
   return (
-    <Dialog>
+    <Dialog onOpenChange={setOpen} open={open}>
       <DialogTrigger asChild>
         <Button>Trouver un ami</Button>
       </DialogTrigger>
@@ -84,6 +84,7 @@ export function ButtonFindFriend() {
                     onClick={() => {
                       mutation.mutate(user.id);
                       setListOfNewFriends((prev) => [...prev, user.id]);
+                      setOpen(false);
                     }}
                   >
                     <img

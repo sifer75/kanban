@@ -1,11 +1,13 @@
 import { User } from "@/lib/cards.utils";
 import FriendCardAdd from "./FriendCardAdd";
 import FriendCardDelete from "./FriendCardDelete";
+import { Dispatch, SetStateAction } from "react";
 
 interface FriendCardProps {
   user: User;
+  setOpen: Dispatch<SetStateAction<boolean>>;
 }
-function FriendCard({ user }: FriendCardProps) {
+function FriendCard({ user, setOpen }: FriendCardProps) {
   return (
     <div
       className="w-full h-full flex  p-2 items-center justify-between border-y border-black"
@@ -20,8 +22,8 @@ function FriendCard({ user }: FriendCardProps) {
         <span>{user.name}</span>
       </div>
       <div className="gap-3 flex">
-        <FriendCardAdd userId={user.id} />
-        <FriendCardDelete userId={user.id} />
+        <FriendCardAdd userId={user.id} setOpen={setOpen} />
+        <FriendCardDelete userId={user.id} setOpen={setOpen} />
       </div>
     </div>
   );
