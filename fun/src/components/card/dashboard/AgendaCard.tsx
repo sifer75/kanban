@@ -12,7 +12,6 @@ function AgendaCard({
   timeEndHour,
   timeEndMin,
 }: MissionProps) {
-  console.log(tasks, "fdsq");
   return (
     <div className="bg-[#4F894A]/40 w-full rounded-lg flex items-start gap-3 p-5">
       <img

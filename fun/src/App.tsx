@@ -6,6 +6,7 @@ import Tasks from "./page/Tasks";
 import { Toaster } from "./components/ui/toaster";
 import { Layout } from "./components/layout/layout";
 import Friend from "./page/Friend";
+import Messagerie from "./page/Messagerie";
 
 export default function App() {
   return (
@@ -26,6 +27,8 @@ export default function App() {
             element={<Tasks />}
           />
           <Route path="/friend" element={<Friend />} />
+          <Route path="/message" element={<Messagerie />} />
+          <Route path="/message/:friendId" element={<Messagerie />} />
         </Route>
       </Routes>
       <Toaster />

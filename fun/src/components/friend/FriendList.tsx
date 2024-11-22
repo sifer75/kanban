@@ -47,7 +47,7 @@ function FriendList({ selectedInput, searchFriends }: ListProps) {
     );
 
   return (
-    <div className="w-full bg-[#FAFBFD] rounded-xl p-3 h-full">
+    <div className="w-1/4 h-full bg-[#FAFBFD] rounded-xl p-3 overflow-y-scroll overflow-hidden">
       <h1 className="text-xl h-8 w-32">{SearchCategory.Ami}s</h1>
       <ul>
         {friendsList.map((friend, index) => (

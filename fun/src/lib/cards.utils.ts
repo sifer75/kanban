@@ -41,9 +41,11 @@ export interface MissionProps {
 }
 
 export interface User {
-  avatar_url: string;
   id: number;
   name: string;
+  friendId: number;
+  userId: number;
+  friend: { avatarUrl: string; name: string; id: number };
   email: string;
   password: string;
   provider: string;

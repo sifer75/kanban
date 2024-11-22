@@ -12,7 +12,7 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/command";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { requestFriend, getAllUsers } from "@/lib/user.request";
 import { DialogDescription } from "@radix-ui/react-dialog";
 import { User } from "@/lib/cards.utils";
@@ -20,6 +20,7 @@ import { useState } from "react";
 import { Input } from "../ui/input";
 
 export function ButtonFindFriend() {
+  const queryClient = useQueryClient();
   const [findUser, setFindUser] = useState<string>("");
   const [listOfNewFriends, setListOfNewFriends] = useState<number[]>([]);
   const [open, setOpen] = useState<boolean>(false);
@@ -35,6 +36,9 @@ export function ButtonFindFriend() {
   const mutation = useMutation({
     mutationFn: (id: number) => requestFriend(id),
     mutationKey: ["friend"],
+    onSuccess: () => {
+      queryClient.invalidateQueries(["friends", "allUsers", "requestFriends"]);
+    },
   });
 
   if (isLoading) {

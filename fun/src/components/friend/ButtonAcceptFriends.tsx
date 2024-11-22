@@ -23,6 +23,7 @@ function ButtonAcceptFriends() {
   } = useQuery<User[]>({
     queryFn: getAllRequestFriend,
     queryKey: ["requestFriends"],
+    retry: false,
   });
 
   if (isLoading) {

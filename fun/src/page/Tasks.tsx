@@ -54,7 +54,6 @@ function Tasks() {
   const handleDragEnd = (e: DragEndEvent) => {
     const { over, active } = e;
     if (!over || !active) return;
-    console.log(active.id, over.id, "zzzz");
     const oldColumnId = findContainer(active.id as string);
     const newColumnId = findContainer(over.id as string);
     if (!oldColumnId || !newColumnId) return;

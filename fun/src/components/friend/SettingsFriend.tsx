@@ -9,12 +9,14 @@ import {
 import { DeleteFriend } from "@/lib/user.request";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ChatLines, List, UserXmark } from "iconoir-react";
+import { useNavigate } from "react-router-dom";
 
 interface SettingsFriendProps {
   id: number;
 }
 function SettingsFriend({ id }: SettingsFriendProps) {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const mutation = useMutation({
     mutationFn: DeleteFriend,
@@ -23,6 +25,8 @@ function SettingsFriend({ id }: SettingsFriendProps) {
       queryClient.invalidateQueries({ queryKey: ["friends"] });
     },
   });
+
+  const startTchat = () => {};
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -31,7 +35,13 @@ function SettingsFriend({ id }: SettingsFriendProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
-        <DropdownMenuItem className="flex items-center gap-2">
+        <DropdownMenuItem
+          className="flex items-center gap-2"
+          onClick={() => {
+            navigate(`/message/${id}`);
+            startTchat();
+          }}
+        >
           <ChatLines className="w-5 h-5" />
           <span>Message</span>
         </DropdownMenuItem>

@@ -60,6 +60,11 @@ function Sidebar() {
           link={"/friend"}
           logo={<BookLock className="w-4 h-4" />}
         />
+        <Elements
+          title={"Messages"}
+          link={"/message"}
+          logo={<BookLock className="w-4 h-4" />}
+        />
       </div>
       <div className="flex flex-col gap-3 w-full text-sm h-full">
         <MenuAction />

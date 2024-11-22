@@ -20,7 +20,6 @@ const DateTask = React.forwardRef<HTMLButtonElement, DateTaskProps>(
     const handleDateSelected = (selectedDate: Date | undefined) => {
       setDate(selectedDate);
       setOpen(false);
-      console.log(selectedDate, "cdd");
     };
     return (
       <Popover open={open} onOpenChange={setOpen}>
