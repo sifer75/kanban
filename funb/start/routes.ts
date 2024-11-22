@@ -9,6 +9,9 @@
 
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
+import transmit from '@adonisjs/transmit/services/main'
+
+const MessagesController = () => import('#controllers/messages_controller')
 const WorkspacesController = () => import('#controllers/workspaces_controller')
 const KanbansController = () => import('#controllers/kanbans_controller')
 const TaskController = () => import('#controllers/tasks_controller')
@@ -22,6 +25,7 @@ router.get('/auth/github/callback', [SocialsController, 'githubCallback'])
 router.get('/google/redirect', [SocialsController, 'googleRedirect'])
 router.get('/auth/google/callback', [SocialsController, 'googleCallback'])
 
+//middleware de l'Oauth
 router
   .group(() => {
     // user
@@ -34,6 +38,9 @@ router
     router.delete('/user/friend/delete/:id', [UsersController, 'deleteFriend'])
     router.delete('/user/friend/request/delete/:id', [UsersController, 'deleteFriendRequest'])
     router.get('/user/get/friend/all', [UsersController, 'findAllFriends'])
+    //message
+    transmit.registerRoutes()
+    router.post('/tchat/:id', [MessagesController, 'sendMessage'])
     //  workspace
     router.post('/workspace/create', [WorkspacesController, 'createWorkspace'])
     router.get('/workspace/get', [WorkspacesController, 'getAllWorkspace'])

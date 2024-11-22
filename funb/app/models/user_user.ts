@@ -11,14 +11,17 @@ export default class UserUser extends BaseModel {
   @column()
   declare user_id: number
 
+  @belongsTo(() => User, { foreignKey: 'user_id' })
+  declare user: BelongsTo<typeof User>
+
   @column()
   declare friend_id: number
 
+  @belongsTo(() => User, { foreignKey: 'friend_id' })
+  declare friend: BelongsTo<typeof User>
+
   @column()
   declare status: 'pending' | 'accepted'
-
-  @belongsTo(() => User, { foreignKey: 'user_id' })
-  declare user: BelongsTo<typeof User>
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

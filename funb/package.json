@@ -56,12 +56,13 @@
     "@adonisjs/cors": "^2.2.1",
     "@adonisjs/lucid": "^21.1.0",
     "@adonisjs/session": "^7.4.2",
+    "@adonisjs/transmit": "^2.0.2",
     "@swc/core": "^1.9.1",
     "@vinejs/vine": "^2.1.0",
+    "ioredis": "^5.4.1",
     "luxon": "^3.4.4",
     "pg": "^8.12.0",
-    "reflect-metadata": "^0.2.2",
-    "socket.io": "^4.8.1"
+    "reflect-metadata": "^0.2.2"
   },
   "hotHook": {
     "boundaries": [
