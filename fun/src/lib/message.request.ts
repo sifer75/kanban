@@ -23,3 +23,18 @@ export const sendMessage = async ({ message, friendId }: sendMessageProps) => {
   }
   return response.json();
 };
+
+export const getMessages = async (friendId: number) => {
+  const response = await fetch(
+    `http://${BACKEND_HOST}:3333/get/messages/${friendId}`,
+    {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Erreur lros de la récupération des messages");
+  }
+  return response.json();
+};

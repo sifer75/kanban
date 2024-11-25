@@ -26,7 +26,7 @@ export default function App() {
             path="/workspace/:workspaceId/:elementId"
             element={<Tasks />}
           />
-          <Route path="/friend" element={<Friend />} />
+          {/* <Route path="/friend" element={<Friend />} /> */}
           <Route path="/message" element={<Messagerie />} />
           <Route path="/message/:friendId" element={<Messagerie />} />
         </Route>

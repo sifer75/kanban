@@ -26,6 +26,8 @@ function ButtonAcceptFriends() {
     retry: false,
   });
 
+  console.log("gggg", users);
+
   if (isLoading) {
     return <div>Chargement des demandes...</div>;
   }

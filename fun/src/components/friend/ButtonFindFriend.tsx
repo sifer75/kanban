@@ -32,6 +32,7 @@ export function ButtonFindFriend() {
     queryFn: getAllUsers,
     queryKey: ["allUsers"],
   });
+  console.log(users, "fff");
 
   const mutation = useMutation({
     mutationFn: (id: number) => requestFriend(id),

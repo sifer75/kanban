@@ -13,8 +13,9 @@ import { useNavigate } from "react-router-dom";
 
 interface SettingsFriendProps {
   id: number;
+  setSpeaking: (index: boolean) => void;
 }
-function SettingsFriend({ id }: SettingsFriendProps) {
+function SettingsFriend({ id, setSpeaking }: SettingsFriendProps) {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
@@ -26,7 +27,6 @@ function SettingsFriend({ id }: SettingsFriendProps) {
     },
   });
 
-  const startTchat = () => {};
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -39,7 +39,7 @@ function SettingsFriend({ id }: SettingsFriendProps) {
           className="flex items-center gap-2"
           onClick={() => {
             navigate(`/message/${id}`);
-            startTchat();
+            setSpeaking(true);
           }}
         >
           <ChatLines className="w-5 h-5" />
@@ -48,7 +48,9 @@ function SettingsFriend({ id }: SettingsFriendProps) {
         <DropdownMenuSeparator />
         <DropdownMenuItem
           className="flex items-center gap-2"
-          onClick={() => mutation.mutate(id)}
+          onClick={() => {
+            mutation.mutate(id), setSpeaking(false);
+          }}
         >
           <UserXmark className="w-5 h-5" />
           <span>Supprimer</span>

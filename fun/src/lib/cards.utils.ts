@@ -45,24 +45,20 @@ export interface User {
   name: string;
   friendId: number;
   userId: number;
-  friend: { avatarUrl: string; name: string; id: number };
+  user_id: number;
   email: string;
   password: string;
   provider: string;
   providerId: string;
   avatarUrl: string;
+  avatar_url: string;
   token?: string;
 }
 
-export enum SearchCategory {
-  Ami = "Ami",
-  Workspace = "Workspace",
-}
-
 export interface ListProps {
-  selectedInput: SearchCategory;
-  setSearchFriends: (value: string) => void;
-  searchFriends: string;
+  setSearchFriends?: (value: string) => void;
+  setSpeaking: (value: boolean) => void;
+  searchFriends?: string;
 }
 
 export interface StatusSelectionProps {
@@ -72,7 +68,17 @@ export interface StatusSelectionProps {
 
 export interface SearchFriendsProps {
   setSearchFriends: (value: string) => void;
-  setSelectedInput: (value: SearchCategory) => void;
-  selectedInput: SearchCategory;
   searchFriends: string;
+}
+
+export interface MessageProps {
+  id: number;
+  senderId: number;
+  receiverId: number;
+  message: string;
+  createdAt: Date;
+}
+
+export interface MessageListProps {
+  messages: MessageProps[];
 }
