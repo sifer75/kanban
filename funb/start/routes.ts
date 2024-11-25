@@ -28,10 +28,12 @@ router.get('/auth/google/callback', [SocialsController, 'googleCallback'])
 //middleware de l'Oauth
 router
   .group(() => {
+    transmit.registerRoutes()
     // user
     router.post('/user/logout', [UsersController, 'logout'])
     router.get('/user/get', [UsersController, 'getUserInfo'])
     router.get('/user/get/all', [UsersController, 'getAllUsers'])
+    //sse
     router.post('/user/friend/create/:id', [UsersController, 'requestFriend'])
     router.get('/user/friend/request/get', [UsersController, 'getAllRequestFriends'])
     router.post('/user/friend/add/:id', [UsersController, 'addFriend'])
@@ -39,8 +41,9 @@ router
     router.delete('/user/friend/request/delete/:id', [UsersController, 'deleteFriendRequest'])
     router.get('/user/get/friend/all', [UsersController, 'findAllFriends'])
     //message
-    transmit.registerRoutes()
+    //sse
     router.post('/tchat/:id', [MessagesController, 'sendMessage'])
+    router.get('/get/messages/:id', [MessagesController, 'getMessages'])
     //  workspace
     router.post('/workspace/create', [WorkspacesController, 'createWorkspace'])
     router.get('/workspace/get', [WorkspacesController, 'getAllWorkspace'])

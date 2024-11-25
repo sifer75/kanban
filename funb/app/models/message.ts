@@ -2,7 +2,7 @@ import { DateTime } from 'luxon'
 import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
 import User from './user.js'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
-import UserUser from './user_user.js'
+import Friend from './friend.js'
 
 export default class Message extends BaseModel {
   @column({ isPrimary: true })
@@ -20,8 +20,8 @@ export default class Message extends BaseModel {
   @belongsTo(() => User, { foreignKey: 'sender_id' })
   declare sender: BelongsTo<typeof User>
 
-  @belongsTo(() => UserUser, { foreignKey: 'user_user_id' })
-  declare relation: BelongsTo<typeof UserUser>
+  @belongsTo(() => Friend, { foreignKey: 'receiver_id' })
+  declare receiver: BelongsTo<typeof Friend>
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

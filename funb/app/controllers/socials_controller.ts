@@ -39,7 +39,6 @@ export default class SocialsController {
           (user.provider = 'github'),
           (user.provider_id = githubUser.id),
           (user.avatar_url = githubUser.avatarUrl),
-          // (user.token = githubUser.token.token),
           await user.save()
       }
       await auth.use('web').login(user)
@@ -87,7 +86,6 @@ export default class SocialsController {
           (user.provider = 'google'),
           (user.provider_id = googleUser.id),
           (user.avatar_url = googleUser.avatarUrl),
-          // (user.token = googleUser.token.token),
           await user.save()
       }
       await auth.use('web').login(user)

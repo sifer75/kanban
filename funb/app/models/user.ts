@@ -34,9 +34,6 @@ export default class User extends compose(BaseModel, AuthFinder) {
   @column()
   declare avatar_url: string
 
-  @column()
-  declare token: string | undefined
-
   @hasMany(() => Workspace, { foreignKey: 'user_id' })
   declare workspaces: HasMany<typeof Workspace>
 
@@ -44,9 +41,9 @@ export default class User extends compose(BaseModel, AuthFinder) {
   declare missions: HasMany<typeof Mission>
 
   @manyToMany(() => User, {
-    pivotTable: 'user_user',
-    pivotForeignKey: 'user_id',
-    pivotRelatedForeignKey: 'friend_id',
+    pivotTable: 'friends',
+    pivotForeignKey: 'user_a_id',
+    pivotRelatedForeignKey: 'user_b_id',
   })
   declare friends: ManyToMany<typeof User>
 
